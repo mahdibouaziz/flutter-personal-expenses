@@ -40,13 +40,41 @@ class MyHomePage extends StatelessWidget {
         title: const Text("Flutter App"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Card(
             color: Colors.blue,
             child: Text("CHART"),
             elevation: 5,
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Amount',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Add Transaction"),
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.purple),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
           Column(
             children: transactions
