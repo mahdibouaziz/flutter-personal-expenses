@@ -31,6 +31,12 @@ class MyHomePage extends StatelessWidget {
         amomunt: 57, date: DateTime.now(), id: 't1', title: 'New Shoes3'),
   ];
 
+  // String titleInput = "";
+  // String amountInput = "";
+
+  final titleContoller = TextEditingController();
+  final amountController = TextEditingController();
+
   MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -50,7 +56,7 @@ class MyHomePage extends StatelessWidget {
           Card(
             elevation: 5,
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -58,14 +64,23 @@ class MyHomePage extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: 'Title',
                     ),
+                    controller: titleContoller,
+                    // onChanged: (val) => titleInput = val,
                   ),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Amount',
                     ),
+                    controller: amountController,
+                    // onChanged: (val) {
+                    //   amountInput = val;
+                    // },
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(titleContoller.text);
+                      print(amountController.text);
+                    },
                     child: const Text("Add Transaction"),
                     style: ButtonStyle(
                       foregroundColor:
