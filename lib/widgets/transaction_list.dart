@@ -12,45 +12,44 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
-      child: SingleChildScrollView(
-        child: Column(
-          children: userTransactions
-              .map((tx) => Card(
-                    child: Row(
-                      children: [
-                        Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.purple, width: 2)),
-                            child: Text(
-                              "\$${tx.amomunt}",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.purple),
-                            )),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              tx.title,
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              DateFormat.MMMMEEEEd().format(tx.date),
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ],
-                        ),
-                      ],
+      child: ListView.builder(
+        itemBuilder: (cxt, index) {
+          return Card(
+            child: Row(
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 2)),
+                    child: Text(
+                      "\$${userTransactions[index].amomunt}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple),
+                    )),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      userTransactions[index].title,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                  ))
-              .toList(),
-        ),
+                    Text(
+                      DateFormat.MMMMEEEEd()
+                          .format(userTransactions[index].date),
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+        itemCount: userTransactions.length,
       ),
     );
   }
