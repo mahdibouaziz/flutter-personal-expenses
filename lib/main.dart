@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       title: "Personal Expenses",
       home: const MyHomePage(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-            .copyWith(secondary: Colors.amber),
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
       ),
     );
   }
