@@ -33,38 +33,25 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (cxt, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  width: 2)),
-                          child: Text(
-                            "\$${userTransactions[index].amount.toStringAsFixed(2)}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Theme.of(context).colorScheme.primary),
-                          )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userTransactions[index].title,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            DateFormat.MMMMEEEEd()
-                                .format(userTransactions[index].date),
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ],
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: FittedBox(
+                            child: Text('\$${userTransactions[index].amount}')),
                       ),
-                    ],
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    title: Text(
+                      userTransactions[index].title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    subtitle: Text(DateFormat.yMMMd()
+                        .format(userTransactions[index].date)),
                   ),
                 );
               },
