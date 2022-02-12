@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addNewTransaction;
@@ -15,15 +16,40 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
+  DateTime? selectedDate;
+
   void submitData() {
     final entredTitle = titleController.text;
-    final entredAmount = double.parse(amountController.text);
-    if (entredTitle.isEmpty || entredAmount <= 0) {
+    final entredAmount1 = amountController.text;
+
+    if (entredTitle.isEmpty || entredAmount1.isEmpty) {
+      return;
+    }
+
+    final entredAmount = double.parse(entredAmount1);
+
+    if (entredAmount <= 0) {
       return;
     }
 
     widget.addNewTransaction(entredTitle, entredAmount);
     Navigator.of(context).pop();
+  }
+
+  void presentDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime.now())
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -55,12 +81,28 @@ class _NewTransactionState extends State<NewTransaction> {
               //   amountInput = val;
               // },
             ),
-            TextButton(
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  Text(selectedDate == null
+                      ? "No Date Choosen!"
+                      : DateFormat.yMd().format(selectedDate as DateTime)),
+                  TextButton(
+                      onPressed: presentDatePicker,
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ))
+                ],
+              ),
+            ),
+            ElevatedButton(
               onPressed: submitData,
               child: const Text("Add Transaction"),
               style: ButtonStyle(
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.primary),
               ),
             )
           ],
