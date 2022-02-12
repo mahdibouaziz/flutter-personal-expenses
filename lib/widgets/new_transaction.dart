@@ -60,7 +60,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: const Text("Add Transaction"),
               style: ButtonStyle(
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.purple),
+                    MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
               ),
             )
           ],
