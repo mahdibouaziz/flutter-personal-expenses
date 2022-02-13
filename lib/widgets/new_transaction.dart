@@ -22,7 +22,7 @@ class _NewTransactionState extends State<NewTransaction> {
     final entredTitle = titleController.text;
     final entredAmount1 = amountController.text;
 
-    if (entredTitle.isEmpty || entredAmount1.isEmpty) {
+    if (entredTitle.isEmpty || entredAmount1.isEmpty || selectedDate == null) {
       return;
     }
 
@@ -32,7 +32,7 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
 
-    widget.addNewTransaction(entredTitle, entredAmount);
+    widget.addNewTransaction(entredTitle, entredAmount, selectedDate);
     Navigator.of(context).pop();
   }
 

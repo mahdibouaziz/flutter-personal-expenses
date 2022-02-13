@@ -17,8 +17,10 @@ class MyApp extends StatelessWidget {
       title: "Personal Expenses",
       home: const MyHomePage(),
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-              .copyWith(secondary: Colors.amber),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.purple,
+            errorColor: Colors.red[700],
+          ).copyWith(secondary: Colors.amber),
           fontFamily: 'Quicksand',
           textTheme: const TextTheme(
             titleLarge: TextStyle(
@@ -45,13 +47,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> userTransactions = [
-    Transaction(amount: 60, date: DateTime.now(), id: 't1', title: 'New Shoes'),
+    Transaction(amount: 60, date: DateTime.now(), id: 't0', title: 'New Shoes'),
     Transaction(
         amount: 40, date: DateTime.now(), id: 't1', title: 'Weekly Groceries'),
     Transaction(
-        amount: 30, date: DateTime.now(), id: 't1', title: 'New Shoes2'),
+        amount: 30,
+        date: DateTime.now().subtract(const Duration(days: 1)),
+        id: 't2',
+        title: 'New Shoes2'),
     Transaction(
-        amount: 57, date: DateTime.now(), id: 't1', title: 'New Shoes3'),
+        amount: 57,
+        date: DateTime.now().subtract(const Duration(days: 2)),
+        id: 't3',
+        title: 'New Shoes3'),
   ];
 
   List<Transaction> get recentTransactions {
@@ -60,15 +68,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void addNewTransaction(String title, double amount) {
+  void addNewTransaction(String title, double amount, DateTime selectedDate) {
     final newTx = Transaction(
         amount: amount,
-        date: DateTime.now(),
+        date: selectedDate,
         id: DateTime.now().toString(),
         title: title);
 
     setState(() {
       userTransactions.add(newTx);
+    });
+  }
+
+  void deleteTransaction(String id) {
+    setState(() {
+      userTransactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -101,7 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(recentTransactions: recentTransactions),
-            TransactionList(userTransactions: userTransactions)
+            TransactionList(
+                userTransactions: userTransactions,
+                deleteTransaction: deleteTransaction)
           ],
         ),
       ),
