@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_personal_expenses/widgets/adaptive_text_button.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -90,15 +91,15 @@ class _NewTransactionState extends State<NewTransaction> {
                 height: 70,
                 child: Row(
                   children: [
-                    Text(selectedDate == null
-                        ? "No Date Choosen!"
-                        : DateFormat.yMd().format(selectedDate as DateTime)),
-                    TextButton(
-                        onPressed: presentDatePicker,
-                        child: const Text(
-                          'Choose Date',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ))
+                    Text(
+                      selectedDate == null
+                          ? "No Date Choosen!"
+                          : DateFormat.yMd().format(selectedDate as DateTime),
+                    ),
+                    AdaptiveTextButton(
+                      presentDatePicker: presentDatePicker,
+                      text: "Choose Date",
+                    ),
                   ],
                 ),
               ),
